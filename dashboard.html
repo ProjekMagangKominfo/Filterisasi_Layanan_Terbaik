@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAYANAN Kota Banda Aceh - Dashboard Admin</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              green: '#009b60',
+              dark: '#0d3b36'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans antialiased min-h-screen pb-20 selection:bg-blue-100 selection:text-blue-700">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-6 right-6 z-50 hidden items-center gap-3 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl border border-slate-700 transition-all duration-300">
+    <svg class="w-4 h-4 text-emerald-400 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toast-text" class="text-sm font-medium">Notifikasi</span>
+  </div>
+
+  <!-- HEADER UTAMA -->
+  <header class="w-full pt-8 pb-6 px-4 sm:px-6 max-w-[1240px] mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Logo Kiri: LAYANAN Kota Banda Aceh -->
+      <div class="flex items-center gap-3.5 self-start md:self-auto cursor-pointer select-none">
+        <div class="w-10 h-11 relative flex-shrink-0">
+          <svg viewBox="0 0 100 120" class="w-full h-full drop-shadow-2xs">
+            <path d="M10 20 L50 8 L90 20 L90 75 Q90 110 50 118 Q10 110 10 75 Z" fill="#15803d" stroke="#eab308" stroke-width="3.5"/>
+            <path d="M17 26 L50 16 L83 26 L83 72 Q83 103 50 110 Q17 103 17 72 Z" fill="#166534"/>
+            <path d="M32 38 Q50 20 68 38 L68 64 Q50 68 32 64 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>
+            <path d="M42 64 Q50 48 58 64 Z" fill="#991b1b"/>
+            <rect x="48" y="32" width="4" height="26" fill="#ffffff" rx="1"/>
+            <circle cx="50" cy="30" r="3" fill="#ef4444"/>
+            <polygon points="50,16 52,22 58,22 53,26 55,32 50,28 45,32 47,26 42,22 48,22" fill="#fde047"/>
+            <path d="M26 84 Q50 90 74 84 L72 92 Q50 98 28 92 Z" fill="#ffffff" stroke="#ca8a04" stroke-width="1"/>
+            <circle cx="50" cy="88" r="2.5" fill="#dc2626"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-[18px] tracking-wider text-slate-800 leading-none">LAYANAN</span>
+          <span class="text-[11px] font-semibold text-slate-500 tracking-tight mt-0.5">Kota Banda Aceh</span>
+        </div>
+      </div>
+
+      <!-- Navigasi Tengah -->
+      <nav class="flex items-center gap-7 sm:gap-9 text-[13.5px]">
+        <a href="#grafik" class="text-slate-400 hover:text-slate-600 font-medium transition-colors">Grafik Layanan</a>
+        <a href="#saran" class="text-slate-400 hover:text-slate-600 font-medium transition-colors">Saran &amp; Antisipasi</a>
+        <a href="#analisis" class="text-slate-400 hover:text-slate-600 font-medium transition-colors">Analisis Optimalisasi</a>
+        <a href="#tabel" class="relative py-1 font-semibold text-blue-600 transition-colors">
+          Tabel Layanan
+          <span class="absolute bottom-[-3px] left-0 right-0 h-[2px] bg-blue-600 rounded-full"></span>
+        </a>
+      </nav>
+
+      <!-- Tombol Kanan: EXPORT EXCEL -->
+      <button onclick="exportExcel()" class="group flex items-center pl-5 pr-1.5 py-1 rounded-full border-2 border-blue-400 hover:border-blue-500 bg-white hover:bg-blue-50/40 transition-all shadow-2xs cursor-pointer">
+        <span class="text-[11px] font-bold tracking-wider text-slate-400 group-hover:text-blue-600 uppercase mr-3">EXPORT EXCEL</span>
+        <div class="w-8 h-8 rounded-full border border-blue-400/80 group-hover:border-blue-500 flex items-center justify-center text-slate-700 group-hover:text-blue-600 bg-white">
+          <svg viewBox="0 0 24 24" class="w-4 h-4 fill-none stroke-current stroke-2 stroke-linecap-round stroke-linejoin-round">
+            <path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>
+            <polyline points="16 8 12 4 8 8"/>
+            <line x1="12" y1="4" x2="12" y2="15"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <!-- KONTEN UTAMA: CONTAINER PUTIH BESAR -->
+  <main class="max-w-[1240px] mx-auto px-4 sm:px-6 mt-1">
+    <div class="bg-white rounded-[28px] border border-slate-200/90 shadow-sm p-6 sm:p-8">
+      
+      <!-- 1. SEARCH BAR -->
+      <div class="relative w-full mb-6">
+        <div class="w-full flex items-center gap-3 px-4 py-2.5 bg-white border border-slate-200/90 rounded-xl focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            id="searchInput"
+            type="text"
+            oninput="handleSearch(this.value)"
+            placeholder="Cari nama Layanan"
+            class="w-full text-slate-700 placeholder:text-slate-400 text-sm focus:outline-none bg-transparent"
+          />
+        </div>
+      </div>
+
+      <!-- 2. KARTU STATISTIK (4 Horizontal Cards di dalam box) -->
+      <div class="w-full bg-[#f1f5f9]/70 border border-slate-200/80 rounded-2xl p-4 sm:p-5 mb-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div>
+            <p class="text-[13px] font-medium text-slate-700 mb-1.5">Total Layanan</p>
+            <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 shadow-2xs">
+              <span class="text-[17px] sm:text-[18px] font-semibold text-slate-800">68</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[13px] font-medium text-slate-700 mb-1.5">Total Akses Publik</p>
+            <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 shadow-2xs">
+              <span class="text-[17px] sm:text-[18px] font-semibold text-slate-800">199.350</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[13px] font-medium text-slate-700 mb-1.5">Jumlah Kategori</p>
+            <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 shadow-2xs">
+              <span class="text-[17px] sm:text-[18px] font-semibold text-slate-800">7</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[13px] font-medium text-slate-700 mb-1.5">Layanan non-aktif</p>
+            <div class="bg-white border border-slate-200 rounded-lg px-3.5 py-2 shadow-2xs">
+              <span class="text-[17px] sm:text-[18px] font-semibold text-slate-800">21</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. FILTER KATEGORI (TOMBOL PIL) -->
+      <div class="mb-6 space-y-2.5">
+        <div class="flex flex-wrap items-center gap-2.5" id="categoryRow1">
+          <button onclick="setFilter('Ranking Terbaik', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-[#2563eb] text-white shadow-xs">Ranking Terbaik</button>
+          <button onclick="setFilter('Kependudukan', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Kependudukan</button>
+          <button onclick="setFilter('Kesehatan', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Kesehatan</button>
+          <button onclick="setFilter('Pendidikan', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Pendidikan</button>
+          <button onclick="setFilter('Kesehatan', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Kesehatan</button>
+          <button onclick="setFilter('Bantuan Sosial', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Bantuan Sosial</button>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5" id="categoryRow2">
+          <button onclick="setFilter('Keamanan', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Keamanan</button>
+          <button onclick="setFilter('Ekonomi & Usaha', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Ekonomi & Usaha</button>
+          <button onclick="setFilter('Infrastruktur', this)" class="category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50">Infrastruktur</button>
+        </div>
+      </div>
+
+      <!-- 4. TABEL LAYANAN -->
+      <div class="border border-slate-200/90 rounded-2xl overflow-hidden bg-white mb-6">
+        <!-- Header Tabel -->
+        <div class="grid grid-cols-12 px-5 py-3.5 bg-white border-b border-slate-200 text-slate-800 text-[11px] sm:text-[12px] font-bold tracking-wider uppercase items-center select-none">
+          <div onclick="toggleSort()" class="col-span-12 md:col-span-6 flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors">
+            <svg class="w-3.5 h-3.5 text-slate-600 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+              <path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/>
+            </svg>
+            <span>PERINGKAT &amp; INSTANSI</span>
+          </div>
+          <div class="hidden md:block md:col-span-3 text-slate-800">
+            KATEGORI &amp; WILAYAH
+          </div>
+          <div class="hidden md:block md:col-span-3 text-right sm:text-center text-slate-800">
+            STATUS OPERASIONAL
+          </div>
+        </div>
+
+        <!-- Body Baris Data Tabel -->
+        <div id="tableBody" class="divide-y divide-slate-100">
+          <!-- Rendered dynamically by JavaScript -->
+        </div>
+
+        <!-- Footer Dalam Tabel -->
+        <div class="border-t border-slate-200/90 px-5 py-3.5 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px]">
+          <div class="flex items-center gap-2 text-slate-400">
+            <svg class="w-3.5 h-3.5 shrink-0 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Data diperbarui access real time berdasarkan 4.192 formulir audit warga terverifikasi.</span>
+          </div>
+          <button onclick="downloadCSV()" class="flex items-center gap-1.5 font-semibold text-slate-600 hover:text-blue-600 transition-colors shrink-0 cursor-pointer self-end sm:self-auto">
+            <svg class="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Unduh Rekap CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5. FOOTER CONTAINER: PAGINASI -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-1 text-[13px] text-slate-500">
+        <div id="paginationInfo">
+          <!-- Rendered dynamically -->
+        </div>
+        <div id="paginationControls" class="flex items-center gap-1.5 sm:gap-2 select-none">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const INITIAL_SERVICES = [
+      { id: 1, rank: '#1', code: 'PHB', name: 'Puskesmas Medan Baru', verifyId: 'ID Verifikasi: MBN 0912', icon: '🏥', fullCategory: 'Kesehatan - Medan Baru', status: 'Aktif', checked: true },
+      { id: 2, rank: '#2', code: 'SMP1', name: 'SMP Negeri 1 Medan', verifyId: 'ID Verifikasi: EDU 1044', icon: '🎓', fullCategory: 'Pendidikan - Medan Petissh', status: 'Aktif', checked: true },
+      { id: 3, rank: '#3', code: 'SKP', name: 'Kantor Kelurahan Padang Bulan', verifyId: 'ID Verifikasi: ADM 2014', icon: '⭐', fullCategory: 'Administrasi - Medan Baru', status: 'Aktif', checked: false },
+      { id: 4, rank: '#4', code: 'SNC', name: 'Samsat Medan Kota', verifyId: 'ID Verifikasi: ADM 7731', icon: '🏛️', fullCategory: 'Administrasi & Pajak - Medan Kota', status: 'Tidak Aktif', checked: false },
+      { id: 5, rank: '#5', code: 'PDAM', name: 'Unit Pelayanan PDAM Tirtanadi', verifyId: 'ID Verifikasi: UTL ULS2', icon: '💧', fullCategory: 'Air & Listrik - Medan Amplas', status: 'Aktif', checked: false },
+      { id: 6, rank: '#6', code: 'RSUD', name: 'RSUD Dr. Pirngadi', verifyId: 'ID Verifikasi: MED-0012', icon: '🏥', fullCategory: 'Kesehatan - Medan Timur', status: 'Tidak Aktif', checked: false },
+      { id: 7, rank: '#7', code: 'DIS', name: 'Disdukcapil Kota Medan', verifyId: 'ID Verifikasi: ADM 0110', icon: '🏛️', fullCategory: 'Administrasi - Medan Petisah', status: 'Aktif', checked: false },
+      { id: 8, rank: '#8', code: 'SONS', name: 'SDN 060800 Medan', verifyId: 'ID Verifikasi: EDU 0881', icon: '🎓', fullCategory: 'Pendidikan - Medan Helvetia', status: 'Aktif', checked: false }
+    ];
+
+    const TEMPLATES = [
+      { name: 'Kantor Camat Medan Baru', code: 'KCM', cat: 'Administrasi', reg: 'Medan Baru', icon: '🏛️', status: 'Aktif' },
+      { name: 'Puskesmas Teladan', code: 'PKT', cat: 'Kesehatan', reg: 'Medan Kota', icon: '🏥', status: 'Aktif' },
+      { name: 'SMP Negeri 3 Medan', code: 'SMP3', cat: 'Pendidikan', reg: 'Medan Petisah', icon: '🎓', status: 'Aktif' },
+      { name: 'Dinas Sosial Kota Medan', code: 'DINS', cat: 'Bantuan Sosial', reg: 'Medan Amplas', icon: '⭐', status: 'Aktif' },
+      { name: 'RSUP H. Adam Malik', code: 'RSAM', cat: 'Kesehatan', reg: 'Medan Tuntungan', icon: '🏥', status: 'Aktif' },
+      { name: 'Kantor Pos Medan Kota', code: 'POS', cat: 'Ekonomi & Usaha', reg: 'Medan Kota', icon: '🏛️', status: 'Aktif' },
+      { name: 'Dinas Perhubungan Medan', code: 'DPH', cat: 'Infrastruktur', reg: 'Medan Barat', icon: '🏛️', status: 'Aktif' },
+      { name: 'Damkar Pos Medan Petisah', code: 'DMK', cat: 'Keamanan', reg: 'Medan Petisah', icon: '🏛️', status: 'Aktif' },
+      { name: 'Puskesmas Glugur Darat', code: 'PKGD', cat: 'Kesehatan', reg: 'Medan Timur', icon: '🏥', status: 'Tidak Aktif' },
+      { name: 'SMA Negeri 1 Medan', code: 'SMA1', cat: 'Pendidikan', reg: 'Medan Baru', icon: '🎓', status: 'Aktif' },
+      { name: 'Perpustakaan Daerah Medan', code: 'PRP', cat: 'Pendidikan', reg: 'Medan Petisah', icon: '🎓', status: 'Aktif' },
+      { name: 'Kantor Imigrasi Kelas I', code: 'IMI', cat: 'Administrasi', reg: 'Medan Kota', icon: '🏛️', status: 'Aktif' },
+      { name: 'BPJS Kesehatan Cabang Medan', code: 'BPJS', cat: 'Kesehatan', reg: 'Medan Baru', icon: '🏥', status: 'Aktif' },
+      { name: 'Dinas Lingkungan Hidup', code: 'DLH', cat: 'Infrastruktur', reg: 'Medan Amplas', icon: '⭐', status: 'Aktif' },
+      { name: 'Kantor Kelurahan Babura', code: 'KKB', cat: 'Administrasi', reg: 'Medan Baru', icon: '⭐', status: 'Aktif' },
+      { name: 'Puskesmas Medan Helvetia', code: 'PMH', cat: 'Kesehatan', reg: 'Medan Helvetia', icon: '🏥', status: 'Aktif' },
+      { name: 'SMP Negeri 10 Medan', code: 'SMP10', cat: 'Pendidikan', reg: 'Medan Amplas', icon: '🎓', status: 'Aktif' },
+      { name: 'Polsek Medan Kota', code: 'POL', cat: 'Keamanan', reg: 'Medan Kota', icon: '🏛️', status: 'Aktif' },
+      { name: 'Dinas Koperasi & UMKM', code: 'KOP', cat: 'Ekonomi & Usaha', reg: 'Medan Petisah', icon: '🏛️', status: 'Aktif' },
+      { name: 'PDAM Cabang Sei Agul', code: 'PDSA', cat: 'Infrastruktur', reg: 'Medan Barat', icon: '💧', status: 'Aktif' },
+      { name: 'RS Jiwa Prof. Ildrem', code: 'RSJI', cat: 'Kesehatan', reg: 'Medan Tuntungan', icon: '🏥', status: 'Tidak Aktif' },
+      { name: 'SD Negeri Percobaan Medan', code: 'SDPC', cat: 'Pendidikan', reg: 'Medan Baru', icon: '🎓', status: 'Aktif' },
+      { name: 'Kantor Urusan Agama (KUA)', code: 'KUA', cat: 'Kependudukan', reg: 'Medan Kota', icon: '🏛️', status: 'Aktif' },
+      { name: 'Puskesmas Padang Bulan', code: 'PKPB', cat: 'Kesehatan', reg: 'Medan Baru', icon: '🏥', status: 'Aktif' }
+    ];
+
+    const SERVICES = [...INITIAL_SERVICES];
+    for (let i = 9; i <= 200; i++) {
+      const tmpl = TEMPLATES[(i - 9) % TEMPLATES.length];
+      const cycle = Math.floor((i - 9) / TEMPLATES.length) + 1;
+      const name = cycle === 1 ? tmpl.name : `${tmpl.name} Wilayah ${cycle}`;
+      const code = tmpl.code + (cycle > 1 ? cycle : '');
+      const prefix = tmpl.cat === 'Kesehatan' ? 'MED' : tmpl.cat === 'Pendidikan' ? 'EDU' : tmpl.cat === 'Infrastruktur' ? 'UTL' : 'ADM';
+      SERVICES.push({
+        id: i,
+        rank: `#${i}`,
+        code: code,
+        name: name,
+        verifyId: `ID Verifikasi: ${prefix} ${1000 + ((i * 37) % 8990)}`,
+        icon: tmpl.icon,
+        fullCategory: `${tmpl.cat} - ${tmpl.reg}`,
+        status: (i % 6 !== 0) && tmpl.status === 'Aktif' ? 'Aktif' : 'Tidak Aktif',
+        checked: false
+      });
+    }
+
+    let currentFilter = 'Ranking Terbaik';
+    let searchQuery = '';
+    let sortAsc = true;
+    let currentPage = 1;
+    const itemsPerPage = 8;
+
+    function getPaginationItems(current, total) {
+      if (total <= 7) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+      if (current <= 3) {
+        return [1, 2, 3, 4, '...', total];
+      }
+      if (current === 4) {
+        return [1, 2, 3, 4, 5, '...', total];
+      }
+      if (current >= total - 2) {
+        return [1, '...', total - 3, total - 2, total - 1, total];
+      }
+      if (current === total - 3) {
+        return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+      }
+      return [1, '...', current - 1, current, current + 1, '...', total];
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      const filtered = SERVICES.filter(s => {
+        if (currentFilter !== 'Ranking Terbaik' && !s.fullCategory.toLowerCase().includes(currentFilter.toLowerCase())) return false;
+        if (searchQuery && !s.name.toLowerCase().includes(searchQuery.toLowerCase()) && !s.verifyId.toLowerCase().includes(searchQuery.toLowerCase()) && !s.code.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+        return true;
+      }).sort((a, b) => sortAsc ? a.id - b.id : b.id - a.id);
+
+      const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const paginated = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+      if (paginated.length === 0) {
+        tbody.innerHTML = `<div class="py-12 text-center text-slate-400 text-sm">Tidak ada layanan yang sesuai.</div>`;
+      } else {
+        tbody.innerHTML = paginated.map(s => {
+          const isAktif = s.status === 'Aktif';
+          return `
+            <div class="grid grid-cols-12 px-5 py-3.5 hover:bg-slate-50/70 transition-colors items-center gap-y-2 group">
+              <div class="col-span-12 md:col-span-6 flex items-center gap-3">
+                <div class="w-[18px] h-[18px] shrink-0 flex items-center justify-center">
+                  ${s.checked ? `
+                    <button onclick="toggleCheck(${s.id})" class="w-[18px] h-[18px] rounded bg-[#009b60] text-white flex items-center justify-center shadow-2xs cursor-pointer">
+                      <svg class="w-3.5 h-3.5 stroke-current stroke-[3] fill-none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                  ` : `
+                    <button onclick="toggleCheck(${s.id})" class="w-[18px] h-[18px] rounded border border-transparent group-hover:border-slate-300 hover:!border-slate-400 bg-transparent flex items-center justify-center transition-colors cursor-pointer"></button>
+                  `}
+                </div>
+                <span class="text-[13px] font-bold text-slate-800 w-6 shrink-0">${s.rank}</span>
+                <span class="px-2 py-0.5 text-[11px] font-semibold bg-[#eef2f6] text-slate-600 rounded border border-slate-200/60 shrink-0">${s.code}</span>
+                <div class="flex flex-col min-w-0 pr-2">
+                  <span class="text-[13px] sm:text-[14px] font-bold text-slate-900 leading-snug truncate hover:text-blue-600 cursor-pointer">${s.name}</span>
+                  <span class="text-[11px] text-slate-400 font-normal mt-0.5 tracking-tight">${s.verifyId}</span>
+                </div>
+              </div>
+              <div class="col-span-7 md:col-span-3 flex items-center gap-2 pl-7 md:pl-0">
+                <span class="text-sm">${s.icon}</span>
+                <span class="text-[13px] text-slate-700 font-medium truncate">${s.fullCategory}</span>
+              </div>
+              <div class="col-span-5 md:col-span-3 flex justify-end md:justify-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[12px] font-medium ${isAktif ? 'bg-[#e8fbf3] border border-[#a7f3d0]/60 text-[#009b60]' : 'bg-[#fef2f2] border border-[#fecaca]/60 text-[#ef4444]'}">
+                  <span class="w-1.5 h-1.5 rounded-full ${isAktif ? 'bg-[#009b60]' : 'bg-[#ef4444]'}"></span>
+                  ${s.status}
+                </span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update Pagination Info
+      const startCount = filtered.length === 0 ? 0 : startIndex + 1;
+      const endCount = Math.min(startIndex + itemsPerPage, filtered.length === 200 ? 248 : filtered.length);
+      const totalCount = filtered.length === 200 ? 248 : filtered.length;
+      document.getElementById('paginationInfo').innerHTML = `
+        <span>Menampilkan </span><strong class="font-semibold text-slate-800">${startCount}</strong>
+        <span> sampai </span><strong class="font-semibold text-slate-800">${endCount}</strong>
+        <span> dari </span><strong class="font-semibold text-slate-800">${totalCount}</strong>
+        <span> layanan publik terverifikasi</span>
+      `;
+
+      // Update Pagination Controls
+      const pageItems = getPaginationItems(currentPage, totalPages);
+      let controlsHtml = `
+        <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled class="px-2.5 py-1 text-slate-500 opacity-40 cursor-not-allowed font-medium"' : 'class="px-2.5 py-1 text-slate-500 hover:text-slate-800 font-medium transition-colors cursor-pointer"'}>&lt; Sebelumnya</button>
+      `;
+
+      pageItems.forEach((p, idx) => {
+        if (p === '...') {
+          controlsHtml += `<span class="w-5 text-center text-slate-400 font-medium">...</span>`;
+        } else if (p === currentPage) {
+          controlsHtml += `<button class="w-7 h-7 sm:w-8 sm:h-8 rounded flex items-center justify-center font-semibold text-sm bg-[#0d3b36] text-white shadow-xs cursor-pointer">${p}</button>`;
+        } else {
+          controlsHtml += `<button onclick="goToPage(${p})" class="w-7 h-7 sm:w-8 sm:h-8 rounded flex items-center justify-center font-semibold text-sm text-slate-600 hover:bg-slate-100 cursor-pointer">${p}</button>`;
+        }
+      });
+
+      controlsHtml += `
+        <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled class="px-2.5 py-1 text-slate-500 opacity-40 cursor-not-allowed font-medium"' : 'class="px-2.5 py-1 text-slate-500 hover:text-slate-800 font-medium transition-colors cursor-pointer"'}>Selanjutnya &gt;</button>
+      `;
+      document.getElementById('paginationControls').innerHTML = controlsHtml;
+    }
+
+    function goToPage(page) {
+      currentPage = page;
+      renderTable();
+    }
+
+    function toggleCheck(id) {
+      const item = SERVICES.find(s => s.id === id);
+      if (item) item.checked = !item.checked;
+      renderTable();
+    }
+
+    function toggleSort() {
+      sortAsc = !sortAsc;
+      renderTable();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim();
+      currentPage = 1;
+      renderTable();
+    }
+
+    function setFilter(cat, btn) {
+      currentFilter = cat;
+      currentPage = 1;
+      document.querySelectorAll('.category-pill').forEach(el => {
+        el.className = 'category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50';
+      });
+      btn.className = 'category-pill px-4 sm:px-5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer bg-[#2563eb] text-white shadow-xs';
+      renderTable();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      text.innerText = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    function downloadCSV() {
+      const headers = ['Peringkat', 'Kode', 'Instansi', 'ID Verifikasi', 'Kategori & Wilayah', 'Status'];
+      const rows = SERVICES.map(s => [s.rank, s.code, `"${s.name}"`, `"${s.verifyId}"`, `"${s.fullCategory}"`, s.status]);
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'Layanan_Banda_Aceh.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Berhasil mengunduh Rekap CSV!');
+    }
+
+    function exportExcel() {
+      showToast('Mengekspor data Excel (.xlsx)...');
+      setTimeout(() => downloadCSV(), 500);
+    }
+
+    // Initial render
+    renderTable();
+  </script>
+</body>
+</html>
