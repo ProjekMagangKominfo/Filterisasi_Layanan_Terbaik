@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Data_layanan
+data_layanan.csv
+Data_Layanan_EGov_Banda_Aceh.xlsx
+data_kunjungan_SIMULASI.csv
+

@@ -14,6 +14,8 @@ import {
 import Papa from 'papaparse';
 const csvUrl = new URL('./assets/data_layanan.csv', import.meta.url).href;
 const cssUrl = new URL('./app.css', import.meta.url).href;
+import Navbar from './component/Navbar.tsx';
+import StatsCard from './component/StatsCard.tsx';
 
 interface Layanan {
   id: number;
@@ -77,6 +79,7 @@ export default function App() {
   const [layanan, setLayanan] = useState<Layanan[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('grafik');
+
 
   useEffect(() => {
     const stylesheet = document.createElement('link');
@@ -183,10 +186,7 @@ export default function App() {
         <p>Memuat data layanan...</p>
       </div>
     );
-  }
-
-
-
+}
   return (
     <div className="dashboard">
       {/* Header */}
@@ -200,33 +200,8 @@ export default function App() {
             <span className="logo-subtitle">Kota Banda Aceh</span>
           </div>
         </div>
+            <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <nav className="nav-tabs">
-          <button
-            className={`nav-tab ${activeTab === 'grafik' ? 'active' : ''}`}
-            onClick={() => setActiveTab('grafik')}
-          >
-            Grafik Layanan
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'saran' ? 'active' : ''}`}
-            onClick={() => setActiveTab('saran')}
-          >
-            Saran & Antisipasi
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'analisis' ? 'active' : ''}`}
-            onClick={() => setActiveTab('analisis')}
-          >
-            Analisis Optimalisasi
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'tabel' ? 'active' : ''}`}
-            onClick={() => setActiveTab('tabel')}
-          >
-            Tabel Layanan
-          </button>
-        </nav>
 
         <button className="btn-export" onClick={handleExport}>
           EXPORT EXCEL
@@ -236,25 +211,8 @@ export default function App() {
         </button>
       </header>
 
-      {/* Stats Cards */}
-      <section className="stats-row">
-        <div className="stat-card">
-          <span className="stat-label">Total Layanan</span>
-          <span className="stat-value">{stats.totalLayanan}</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-label">Total Akses Publik</span>
-          <span className="stat-value">{formatNumber(stats.totalAkses)}</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-label">Kategori</span>
-          <span className="stat-value">{stats.kategori}</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-label">Layanan non-aktif</span>
-          <span className="stat-value">{stats.nonAktif}</span>
-        </div>
-      </section>
+            <StatsCard stats={stats} formatNumber={formatNumber} />
+
 
       {/* Main Content - Grafik */}
       {activeTab === 'grafik' && (
@@ -266,9 +224,9 @@ export default function App() {
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart
                   data={top5}
-                  margin={{ top: 10, right: 10, left: 0, bottom: 40 }}
+                  margin={{ top: 2.5, right: 2.5, left: 0, bottom: 10 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#808385" />
                   <XAxis
                     dataKey="name"
                     tick={{ fontSize: 12, fill: '#6B7280' }}
@@ -282,8 +240,8 @@ export default function App() {
                     tickLine={false}
                     tickFormatter={(v) => (v >= 1000 ? `${v / 1000}k` : v)}
                   />
-                  <Tooltip content={<CustomBarTooltip />} cursor={{ fill: 'rgba(124, 58, 237, 0.08)' }} />
-                  <Bar dataKey="akses" fill="#7C3AED" radius={[6, 6, 0, 0]} maxBarSize={56} />
+                  <Tooltip content={<CustomBarTooltip />} cursor={{ fill: 'rgba(58, 142, 237, 0.08)' }} />
+                  <Bar dataKey="akses" fill="#4e91f9" radius={[4, 4, 0, 0]} maxBarSize={56} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -300,8 +258,8 @@ export default function App() {
                       data={kategoriData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={55}
-                      outerRadius={95}
+                      innerRadius={25}
+                      outerRadius={65}
                       paddingAngle={2}
                       dataKey="value"
                       stroke="none"

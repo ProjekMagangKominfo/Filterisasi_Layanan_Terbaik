@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #F8FAFC;
+  background: white;
   color: #1E293B;
   line-height: 1.5;
   min-height: 100vh;
@@ -18,8 +18,7 @@ body {
 /* ========== DASHBOARD LAYOUT ========== */
 .dashboard {
   width: 100%;
-  max-width: none;
-  padding: 20px 24px 40px;
+  padding: 40px 90px 40px;
 }
 
 /* ========== HEADER ========== */
@@ -41,9 +40,8 @@ body {
 
 .logo-icon {
   padding: 0;
-  width: 40px;
-  height: 40px;
-  background: #fafcff;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,15 +59,15 @@ body {
 }
 
 .logo-title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   color: #000;
-  letter-spacing: 0.2em;
-  line-height: 0.6;
+  letter-spacing: 0.1em;
+  line-height: 0.4;
 }
 
 .logo-subtitle {
-  font-size: 11px;
+  font-size: 9px;
   color: #000;
   font-weight: 500;
 }
@@ -85,13 +83,11 @@ body {
 
 .nav-tab {
   background: transparent;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 0 16px;
+  font-size: 12px;
   font-weight: 500;
   color: #858585;
   cursor: pointer;
-  border-radius: 8px;
   transition: color 0.15s, background 0.15s;
   white-space: nowrap;
 }
@@ -119,7 +115,7 @@ body {
   font-size: 13px;
   font-weight: 600;
   padding: 9px 18px;
-  border-radius: 999px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, box-shadow 0.15s;
   white-space: nowrap;
@@ -127,9 +123,9 @@ body {
 }
 
 .btn-export:hover {
-  background: #0D9488;
+  background: #4e91f9;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+  box-shadow: 0 4px 12px rgba(13, 87, 148, 0.25);
 }
 
 .btn-export svg {
@@ -140,15 +136,15 @@ body {
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 7px;
   margin-bottom: 24px;
+  background: #f2f6ff;
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
 }
 
 .stat-card {
-  background: #fff;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 16px 20px;
+  padding: 16px 7px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -157,34 +153,40 @@ body {
 
 .stat-label {
   font-size: 13px;
-  color: #64748B;
+  color: black;
   font-weight: 500;
+  text-align: left;
 }
 
 .stat-value {
-  font-size: 26px;
-  font-weight: 700;
+  font-size: 13px;
   color: #0F172A;
   letter-spacing: -0.02em;
+  background: white;
+  text-align: left;
+  border-radius: 5px;
+  border: 1px solid #9a9a9a;
+  padding: 5px 0 5px 5px;
 }
 
 /* ========== CHARTS ROW ========== */
 .charts-row {
   display: grid;
+  padding: 20px;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  height: 100vh;
+  background: #f2f6ff;
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
 }
 
 .chart-card {
-  background: #fff;
-  border: 1px solid #E2E8F0;
-  border-radius: 14px;
-  padding: 20px 22px 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-align: left;
 }
 
 .chart-title {
-  font-size: 16px;
+  font-size: 21px;
   font-weight: 650;
   color: #0F172A;
   margin-bottom: 12px;
@@ -192,15 +194,23 @@ body {
 }
 
 .chart-container {
-  width: 100%;
+  background: white;
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
   min-height: 280px;
+  height: fit-content;
+  width: 100%;
+  padding: 25px 20px 0 0;
 }
 
 /* Pie Layout */
 .pie-layout {
   display: flex;
   align-items: center;
-  gap: 8px;
+  background: white;
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
+  padding: 0 20px 0 0;
 }
 
 .pie-chart-wrap {
@@ -249,10 +259,10 @@ body {
 /* Custom Tooltip */
 .custom-tooltip {
   background: #fff;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 10px 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
+  padding: 5px 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .tooltip-label {
@@ -264,7 +274,7 @@ body {
 
 .tooltip-value {
   font-size: 13px;
-  color: #7C3AED;
+  color: #4e91f9;
   font-weight: 600;
 }
 
