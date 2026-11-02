@@ -1,0 +1,22 @@
+{
+  "statistik": {
+    "total_layanan": 104,
+    "total_akses_publik": "3.969.647",
+    "jumlah_kategori": 2,
+    "layanan_non_aktif": 36
+  },
+  "sering_digunakan": [
+    { "id": 69, "nama": "SIDADU", "kategori": "Layanan Administrasi Pemerintahan", "akses": "218.847" },
+    { "id": 97, "nama": "BPS Kota Banda Aceh", "kategori": "Layanan Publik", "akses": "215.609" },
+    { "id": 82, "nama": "CSIRT Banda Aceh", "kategori": "Layanan Publik", "akses": "204.835" },
+    { "id": 7, "nama": "SIM TAKKAH", "kategori": "Layanan Administrasi Pemerintahan", "akses": "199.866" },
+    { "id": 88, "nama": "EPUSLUH", "kategori": "Layanan Administrasi Pemerintahan", "akses": "189.827" }
+  ],
+  "jarang_digunakan": [
+    { "id": 106, "nama": "Aplikasi E-Disiplin", "kategori": "Layanan Administrasi Pemerintahan", "akses": "470" },
+    { "id": 23, "nama": "SIAK Terpusat", "kategori": "Layanan Administrasi Pemerintahan", "akses": "761" },
+    { "id": 102, "nama": "SRIKANDI", "kategori": "Layanan Administrasi Pemerintahan", "akses": "780" },
+    { "id": 75, "nama": "Aplikasi Antrian", "kategori": "Layanan Publik", "akses": "982" },
+    { "id": 92, "nama": "Peta Jabatan", "kategori": "Layanan Administrasi Pemerintahan", "akses": "1.125" }
+  ]
+}

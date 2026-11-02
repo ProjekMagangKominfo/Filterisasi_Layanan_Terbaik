@@ -12,6 +12,10 @@ import {
   Cell,
 } from 'recharts';
 import Papa from 'papaparse';
+
+// 👇 Ini bagian yang kelupaan di-import, Bro!
+import AnalisisOptimalisasi from './pages/AnalisisOptimalisasi';
+
 const csvUrl = new URL('./assets/data_layanan.csv', import.meta.url).href;
 const cssUrl = new URL('./app.css', import.meta.url).href;
 import Navbar from './component/Navbar.tsx';
@@ -79,7 +83,6 @@ export default function App() {
   const [layanan, setLayanan] = useState<Layanan[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('grafik');
-
 
   useEffect(() => {
     const stylesheet = document.createElement('link');
@@ -186,7 +189,8 @@ export default function App() {
         <p>Memuat data layanan...</p>
       </div>
     );
-}
+  }
+  
   return (
     <div className="dashboard">
       {/* Header */}
@@ -200,8 +204,8 @@ export default function App() {
             <span className="logo-subtitle">Kota Banda Aceh</span>
           </div>
         </div>
-            <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-
+        
+        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <button className="btn-export" onClick={handleExport}>
           EXPORT EXCEL
@@ -211,8 +215,7 @@ export default function App() {
         </button>
       </header>
 
-            <StatsCard stats={stats} formatNumber={formatNumber} />
-
+      <StatsCard stats={stats} formatNumber={formatNumber} />
 
       {/* Main Content - Grafik */}
       {activeTab === 'grafik' && (
@@ -309,12 +312,12 @@ export default function App() {
           <p>Panel saran dan antisipasi layanan akan ditampilkan di sini.</p>
         </div>
       )}
+      
+      {/* 👇 Ini dia pemanggilan halaman buatanmu! */}
       {activeTab === 'analisis' && (
-        <div className="placeholder-panel">
-          <h2>Analisis Optimalisasi</h2>
-          <p>Panel analisis optimalisasi layanan akan ditampilkan di sini.</p>
-        </div>
+        <AnalisisOptimalisasi />
       )}
+      
       {activeTab === 'tabel' && (
         <div className="table-panel">
           <h2 className="chart-title">Tabel Layanan</h2>
