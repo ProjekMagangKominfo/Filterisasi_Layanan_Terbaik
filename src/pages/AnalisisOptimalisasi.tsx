@@ -1,8 +1,5 @@
+import './style_analisis_optimalisasi.css';
 import dataAnalisis from '../assets/dataAnalisis.json';
-
-import './analisis_optimalisasi.css'
-
-
 
 export default function AnalisisOptimalisasi() {
   return (
