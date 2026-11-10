@@ -1,3 +1,5 @@
+import '../styles/Navbar.css';
+
 const Navbar = ({
   activeTab,
   setActiveTab,

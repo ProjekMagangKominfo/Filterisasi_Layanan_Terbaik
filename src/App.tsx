@@ -1,7 +1,9 @@
-import { useState, useEffect, useMemo, type ComponentProps } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import Papa from "papaparse";
-const csvUrl = new URL("./assets/data_layanan.csv", import.meta.url).href;
+const csvUrl = new URL("./assets/data_layanan_dummy.csv", import.meta.url).href;
+const layananCsvUrl = new URL("./assets/data_layanan.csv", import.meta.url).href;
+const kunjunganCsvUrl = new URL("./assets/data_kunjungan_SIMULASI.csv", import.meta.url).href;
 const cssUrl = new URL("./app.css", import.meta.url).href;
 import Navbar from "./component/Navbar.tsx";
 import StatsCard from "./component/StatsCard.tsx";
@@ -26,6 +28,30 @@ interface CsvLayanan {
   status?: string;
 }
 
+interface CsvMetadataLayanan {
+  id_layanan?: string;
+  nama_layanan?: string;
+  kategori_layanan?: string;
+  status_operasional?: string;
+  url?: string;
+}
+
+interface CsvKunjungan {
+  id_layanan?: string;
+  nama_layanan?: string;
+  periode?: string;
+  jumlah_kunjungan?: string;
+}
+
+interface KunjunganLayanan {
+  id_layanan: number;
+  nama_layanan: string;
+  periode: string;
+  jumlah_kunjungan: number;
+  kategori_layanan: string;
+  url: string;
+}
+
 const recommendations = [
   {
     title: 'perluas sosialisasi layanan digital',
@@ -41,23 +67,16 @@ const recommendations = [
   },
 ]
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Kependudukan: "#3B82F6",
-  Kesehatan: "#6B7280",
-  Pendidikan: "#F59E0B",
-  Sosial: "#EAB308",
-  "Ekonomi&Usaha": "#14B8A6",
-  "Infrastruktur&Lingkungan": "#A855F7",
-  "Keamanan&Darurat": "#1F2937",
-};
-
 function formatNumber(num: number): string {
   return new Intl.NumberFormat("id-ID").format(num);
 }
 
 export default function App() {
   const [layanan, setLayanan] = useState<Layanan[]>([]);
+  const [metadataLayanan, setMetadataLayanan] = useState<CsvMetadataLayanan[]>([]);
+  const [kunjunganLayanan, setKunjunganLayanan] = useState<KunjunganLayanan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("grafik");
   const [selectedRecommendation, setSelectedRecommendation] = useState<string | null>(null)
 
@@ -75,26 +94,73 @@ export default function App() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch(csvUrl);
-        if (!response.ok) throw new Error("CSV not found");
-        const text = await response.text();
-        Papa.parse<CsvLayanan>(text, {
+        const responses = await Promise.all([
+          fetch(csvUrl),
+          fetch(layananCsvUrl),
+          fetch(kunjunganCsvUrl),
+        ]);
+        const fileNames = ["data_layanan_dummy.csv", "data_layanan.csv", "data_kunjungan_SIMULASI.csv"];
+        const failedResponse = responses.findIndex((response) => !response.ok);
+        if (failedResponse !== -1) {
+          throw new Error(`Gagal memuat ${fileNames[failedResponse]}`);
+        }
+
+        const [dummyText, metadataText, visitsText] = await Promise.all(
+          responses.map((response) => response.text()),
+        );
+        const dummyRows = Papa.parse<CsvLayanan>(dummyText, {
           header: true,
           skipEmptyLines: true,
-          complete: (results) => {
-            const parsed = results.data.map((row, idx) => ({
-              id: Number.parseInt(row.id ?? "", 10) || idx + 1,
-              nama: row.nama || "",
-              kategori: row.kategori || "",
-              akses: Number.parseInt(row.akses ?? "", 10) || 0,
-              status: (row.status || "aktif").toLowerCase(),
-            }));
-            setLayanan(parsed);
-            setLoading(false);
-          },
+        }).data;
+        const metadataRows = Papa.parse<CsvMetadataLayanan>(metadataText, {
+          header: true,
+          skipEmptyLines: true,
+        }).data;
+        const visitRows = Papa.parse<CsvKunjungan>(visitsText, {
+          header: true,
+          skipEmptyLines: true,
+        }).data;
+
+        setMetadataLayanan(metadataRows);
+        setLayanan(
+          dummyRows.map((row, idx) => ({
+            id: Number.parseInt(row.id ?? "", 10) || idx + 1,
+            nama: row.nama || "",
+            kategori: row.kategori || "",
+            akses: Number.parseInt(row.akses ?? "", 10) || 0,
+            status: (row.status || "aktif").toLowerCase(),
+          })),
+        );
+
+        const layananById = new Map<number, CsvMetadataLayanan>();
+        metadataRows.forEach((row) => {
+          const id = Number.parseInt(row.id_layanan ?? "", 10);
+          if (Number.isFinite(id)) layananById.set(id, row);
         });
+
+        setKunjunganLayanan(
+          visitRows.map((row, index) => {
+            const id = Number.parseInt(row.id_layanan ?? "", 10);
+            const jumlahKunjungan = Number.parseInt(row.jumlah_kunjungan ?? "", 10);
+            const metadata = layananById.get(id);
+            if (!Number.isFinite(id) || !Number.isFinite(jumlahKunjungan) || !metadata) {
+              throw new Error(`Data kunjungan baris ${index + 2} tidak valid atau tidak memiliki metadata layanan`);
+            }
+
+            return {
+              id_layanan: id,
+              nama_layanan: metadata.nama_layanan || row.nama_layanan || `Layanan ${id}`,
+              periode: row.periode || "",
+              jumlah_kunjungan: jumlahKunjungan,
+              kategori_layanan: metadata.kategori_layanan || "Tidak diketahui",
+              url: metadata.url || "",
+            };
+          }),
+        );
       } catch (error) {
         console.error("Error loading CSV:", error);
+        setLoadError(error instanceof Error ? error.message : "Terjadi kesalahan saat memuat data CSV");
+      } finally {
         setLoading(false);
       }
     };
@@ -103,17 +169,20 @@ export default function App() {
 
   // ============== STATISTIK ==============
   const stats = useMemo(() => {
-    const totalLayanan = layanan.length;
-    const totalAkses = layanan.reduce((sum, l) => sum + (l.akses || 0), 0);
-    const kategoriSet = new Set(layanan.map((l) => l.kategori).filter(Boolean));
-    const nonAktif = layanan.filter((l) => l.status === "non-aktif").length;
+    const kategoriSet = new Set(
+      metadataLayanan
+        .map((row) => row.kategori_layanan?.trim())
+        .filter((kategori): kategori is string => Boolean(kategori)),
+    );
     return {
-      totalLayanan,
-      totalAkses,
+      totalLayanan: metadataLayanan.length,
+      totalAkses: kunjunganLayanan.reduce((sum, row) => sum + row.jumlah_kunjungan, 0),
       kategori: kategoriSet.size,
-      nonAktif,
+      nonAktif: metadataLayanan.filter(
+        (row) => row.status_operasional?.trim() === "Tidak Aktif",
+      ).length,
     };
-  }, [layanan]);
+  }, [metadataLayanan, kunjunganLayanan]);
 
   // Export Excel (CSV sederhana)
   const handleExport = () => {
@@ -139,12 +208,22 @@ export default function App() {
       </div>
     );
   }
+
+  if (loadError) {
+    return (
+      <div className="dashboard-loading" role="alert">
+        <p>Gagal memuat data dashboard: {loadError}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard">
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} handleExport={handleExport} />
+      
       <StatsCard stats={stats} formatNumber={formatNumber} />
 
-      {activeTab === "grafik" && (<Dashboard layanan={layanan} formatNumber={formatNumber} />)}
+      {activeTab === "grafik" && (<Dashboard kunjungan={kunjunganLayanan} formatNumber={formatNumber} />)}
 
       {activeTab === "saran" && (<Saran_Antisipasi recommendations={recommendations} selectedRecommendation={selectedRecommendation} setSelectedRecommendation={setSelectedRecommendation} />)}
 

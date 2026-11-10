@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties, Dispatch, SetStateAction } from 'react'
-import './saran_antisipasi.css'
+import '../styles/saran_antisipasi.css'
 
 type Recommendation = {
   title: string
