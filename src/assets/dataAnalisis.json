@@ -1,22 +1,26 @@
 {
-  "statistik": {
-    "total_layanan": 104,
-    "total_akses_publik": "3.969.647",
-    "jumlah_kategori": 2,
-    "layanan_non_aktif": 36
-  },
   "sering_digunakan": [
-    { "id": 69, "nama": "SIDADU", "kategori": "Layanan Administrasi Pemerintahan", "akses": "218.847" },
-    { "id": 97, "nama": "BPS Kota Banda Aceh", "kategori": "Layanan Publik", "akses": "215.609" },
-    { "id": 82, "nama": "CSIRT Banda Aceh", "kategori": "Layanan Publik", "akses": "204.835" },
-    { "id": 7, "nama": "SIM TAKKAH", "kategori": "Layanan Administrasi Pemerintahan", "akses": "199.866" },
-    { "id": 88, "nama": "EPUSLUH", "kategori": "Layanan Administrasi Pemerintahan", "akses": "189.827" }
+    { "id": 69, "nama": "SIDADU", "kategori": "DINKES", "akses": 218847 },
+    { "id": 97, "nama": "BPS Kota Banda Aceh", "kategori": "DISKOMINFOTIK", "akses": 215609 },
+    { "id": 82, "nama": "CSIRT Banda Aceh", "kategori": "DISKOMINFOTIK", "akses": 204835 },
+    { "id": 7, "nama": "SIM TAKKAH", "kategori": "BKPSDM", "akses": 199866 },
+    { "id": 88, "nama": "EPUSLUH", "kategori": "DPPKP", "akses": 189827 },
+    { "id": 100, "nama": "JAKLOM", "kategori": "DISPAR", "akses": 176690 },
+    { "id": 107, "nama": "BOSS", "kategori": "SETDA", "akses": 173555 },
+    { "id": 109, "nama": "WAGATE", "kategori": "SETDA", "akses": 172302 },
+    { "id": 64, "nama": "SIMPEL", "kategori": "SETDA", "akses": 168586 },
+    { "id": 32, "nama": "Aplikasi SIM-PPID", "kategori": "DISKOMINFOTIK", "akses": 167709 }
   ],
   "jarang_digunakan": [
-    { "id": 106, "nama": "Aplikasi E-Disiplin", "kategori": "Layanan Administrasi Pemerintahan", "akses": "470" },
-    { "id": 23, "nama": "SIAK Terpusat", "kategori": "Layanan Administrasi Pemerintahan", "akses": "761" },
-    { "id": 102, "nama": "SRIKANDI", "kategori": "Layanan Administrasi Pemerintahan", "akses": "780" },
-    { "id": 75, "nama": "Aplikasi Antrian", "kategori": "Layanan Publik", "akses": "982" },
-    { "id": 92, "nama": "Peta Jabatan", "kategori": "Layanan Administrasi Pemerintahan", "akses": "1.125" }
+    { "id": 106, "nama": "Aplikasi E-Disiplin", "kategori": "SETDA", "akses": 470 },
+    { "id": 23, "nama": "SIAK Terpusat", "kategori": "DISDUKCAPIL", "akses": 761 },
+    { "id": 102, "nama": "SRIKANDI", "kategori": "DISPERSIP", "akses": 780 },
+    { "id": 75, "nama": "Aplikasi Antrian", "kategori": "DPMPTSP", "akses": 982 },
+    { "id": 92, "nama": "Peta Jabatan", "kategori": "SETDA", "akses": 1125 },
+    { "id": 96, "nama": "Identitas Kependudukan Digital (IKD)", "kategori": "DISDUKCAPIL", "akses": 1442 },
+    { "id": 89, "nama": "Cadangan Pangan Nasional", "kategori": "DPPKP", "akses": 1462 },
+    { "id": 45, "nama": "E-Berindah", "kategori": "DLHK3", "akses": 1591 },
+    { "id": 94, "nama": "E Sakip Reviu", "kategori": "SETDA", "akses": 1632 },
+    { "id": 62, "nama": "Aplikasi E-Kinerja", "kategori": "SETDA", "akses": 1798 }
   ]
 }

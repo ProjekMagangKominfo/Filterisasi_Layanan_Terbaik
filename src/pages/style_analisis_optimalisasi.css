@@ -15,9 +15,9 @@
 }
 
 .analisis-card {
-  background-color: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
+  background-color: #F2F6FF; /* Warna background sama dengan stats-row */
+  border: 1px solid #9A9A9A;  /* Warna border sama dengan stats-row */
+  border-radius: 5px;        /* Border radius disamakan */
   padding: 24px;
   text-align: left;
 }
@@ -39,8 +39,8 @@
 
 .service-item {
   background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
+  border: 1px solid #9A9A9A;
+  border-radius: 5px;
   padding: 20px 24px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   text-align: left;
