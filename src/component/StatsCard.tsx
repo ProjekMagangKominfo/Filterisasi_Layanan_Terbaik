@@ -1,4 +1,6 @@
-const StatsCard = ({formatNumber, stats}: { formatNumber: (num: number) => string; stats: { totalLayanan: number; totalAkses: number; kategori: number; nonAktif: number } }) => {
+import '../styles/StatsCard.css';
+
+const StatsCard = ({formatNumber, stats}: { formatNumber: (num: number) => string; stats: { totalLayanan: number; totalAkses: number; kategori: number; nonAktif: number; } }) => {
     return (
       <section className="stats-row">
         <div className="stat-card">
@@ -14,7 +16,7 @@ const StatsCard = ({formatNumber, stats}: { formatNumber: (num: number) => strin
           <span className="stat-value">{stats.kategori}</span>
         </div>
         <div className="stat-card">
-          <span className="stat-label">Layanan non-aktif</span>
+          <span className="stat-label">Layanan Non-Aktif</span>
           <span className="stat-value">{stats.nonAktif}</span>
         </div>
       </section>

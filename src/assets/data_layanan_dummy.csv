@@ -1,0 +1,69 @@
+id,nama,kategori,akses,status
+1,E-Samsat,Ekonomi&Usaha,18500,aktif
+2,PBB,Ekonomi&Usaha,13380,aktif
+3,BLT,Sosial,15500,aktif
+4,PPDB,Pendidikan,14200,aktif
+5,Pajak Kendaraan Bermotor (E-Samsat),Ekonomi&Usaha,9500,aktif
+6,Kartu Keluarga,Kependudukan,8200,aktif
+7,Akta Kelahiran,Kependudukan,7100,aktif
+8,Surat Domisili,Kependudukan,4950,aktif
+9,BPJS Kesehatan,Kesehatan,15200,aktif
+10,Imunisasi,Kesehatan,12820,aktif
+11,Beasiswa,Pendidikan,6800,aktif
+12,Bantuan UMKM,Ekonomi&Usaha,0,non-aktif
+13,Jalan & Jembatan,Infrastruktur&Lingkungan,11200,aktif
+14,Pengelolaan Sampah,Infrastruktur&Lingkungan,11550,aktif
+15,Pemadam Kebakaran,Keamanan&Darurat,14800,aktif
+16,Polisi Pamong Praja,Keamanan&Darurat,14750,aktif
+17,Posyandu,Kesehatan,0,non-aktif
+18,Rumah Sakit Rujukan,Kesehatan,0,non-aktif
+19,Sekolah Gratis,Pendidikan,6430,aktif
+20,Bantuan Pangan,Sosial,8200,aktif
+21,Bantuan Lansia,Sosial,6270,aktif
+22,Izin Usaha,Ekonomi&Usaha,0,non-aktif
+23,Pajak Daerah,Ekonomi&Usaha,0,non-aktif
+24,Air Bersih,Infrastruktur&Lingkungan,0,non-aktif
+25,Listrik Desa,Infrastruktur&Lingkungan,0,non-aktif
+26,SAR,Keamanan&Darurat,0,non-aktif
+27,KTP Elektronik,Kependudukan,0,non-aktif
+28,Nikah Online,Kependudukan,0,non-aktif
+29,Vaksinasi,Kesehatan,0,non-aktif
+30,Puskesmas Online,Kesehatan,0,non-aktif
+31,Perpustakaan Digital,Pendidikan,0,non-aktif
+32,Kursus Keterampilan,Pendidikan,0,non-aktif
+33,Bantuan Disabilitas,Sosial,0,non-aktif
+34,Program Keluarga Harapan,Sosial,0,non-aktif
+35,Pasar Tradisional,Ekonomi&Usaha,0,non-aktif
+36,Investasi Daerah,Ekonomi&Usaha,0,non-aktif
+37,Taman Kota,Infrastruktur&Lingkungan,0,non-aktif
+38,Drainase,Infrastruktur&Lingkungan,0,non-aktif
+39,Penanganan Bencana,Keamanan&Darurat,0,non-aktif
+40,Keamanan Lingkungan,Keamanan&Darurat,0,aktif
+41,Surat Pindah,Kependudukan,0,aktif
+42,Akta Kematian,Kependudukan,0,aktif
+43,Ambulance,Kesehatan,0,aktif
+44,Laboratorium,Kesehatan,0,aktif
+45,Beasiswa Prestasi,Pendidikan,0,aktif
+46,Buku Gratis,Pendidikan,0,aktif
+47,Bantuan Rumah,Sosial,0,aktif
+48,Bantuan Anak Yatim,Sosial,0,aktif
+49,Sertifikasi Usaha,Ekonomi&Usaha,0,aktif
+50,Pajak Restoran,Ekonomi&Usaha,0,aktif
+51,Jalan Tol,Infrastruktur&Lingkungan,0,aktif
+52,Penghijauan,Infrastruktur&Lingkungan,0,aktif
+53,Posko Darurat,Keamanan&Darurat,0,aktif
+54,Patroli Malam,Keamanan&Darurat,0,aktif
+55,Kartu Identitas Anak,Kependudukan,0,aktif
+56,Surat Keterangan,Kependudukan,0,aktif
+57,Gizi Balita,Kesehatan,0,aktif
+58,Kesehatan Ibu,Kesehatan,0,aktif
+59,Sekolah Luar Biasa,Pendidikan,0,aktif
+60,Pelatihan Guru,Pendidikan,0,aktif
+61,Bantuan Korban Bencana,Sosial,0,aktif
+62,Rehabilitasi Sosial,Sosial,0,aktif
+63,Koperasi,Ekonomi&Usaha,0,aktif
+64,Pasar Digital,Ekonomi&Usaha,0,aktif
+65,Sanitasi,Infrastruktur&Lingkungan,0,aktif
+66,Transportasi Umum,Infrastruktur&Lingkungan,0,aktif
+67,Sistem Peringatan Dini,Keamanan&Darurat,0,aktif
+68,Pengamanan Acara,Keamanan&Darurat,0,aktif

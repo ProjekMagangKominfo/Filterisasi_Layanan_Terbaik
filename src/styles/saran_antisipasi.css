@@ -1,0 +1,190 @@
+.tes-page {
+  min-height: 100vh;
+  padding: 28px;
+  background: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.tes-page h1 {
+  color: #0f172a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 40px;
+}
+
+.tes-page h1.tes-page-title {
+  margin: 0 0 36px;
+  color: #1e3a8a;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.dashboard-grid,
+.donut-grid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.dashboard-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grafik-card {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.donut-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.summary-card,
+.chart-card {
+  min-width: 0;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #9a9a9a;
+  border-radius: 5px;
+  background: #f2f6ff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card h1 {
+  font-family: Poppins, sans-serif;
+}
+
+.summary-note {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  text-align: center;
+}
+
+.summary-note,
+.summary-total {
+  color: #1e3a8a;
+}
+
+.summary-note span,
+.summary-total span {
+  color: #475569;
+  font-size: 14px;
+}
+
+.chart-card {
+  min-height: 320px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.donut-card {
+  padding: 24px;
+}
+
+.chart-title {
+  margin: 0 0 16px;
+  color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.chart-note {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+}
+
+.visit-details {
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.tes-page .btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: fit-content;
+  padding: 6px 16px;
+  overflow: hidden;
+  border-radius: 6px;
+  color: #fff;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  line-height: 1.3;
+  list-style: none;
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  transition: all 0.3s ease;
+}
+
+.tes-page .btn h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tes-page .btn p {
+  font-size: 14px;
+}
+
+.tes-page .btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #3c4fe0 0 -3px 0 inset;
+}
+
+.tes-page .btn-1 {
+  background-image: radial-gradient(100% 100% at 100% 100%, #5adaff 0, #5468ff 100%);
+}
+
+.tes-page .btn-2 {
+  background-image: radial-gradient(100% 100% at 0 100%, #5adaff 0, #5468ff 100%);
+}
+
+.tes-page .btn-3 {
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+}
+
+.tes-page .btn-4 {
+  background-image: radial-gradient(100% 100% at 0 0, #5adaff 0, #5468ff 100%);
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-grid,
+  .donut-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grafik-card {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,129 @@
+/* ========== HEADER ========== */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 0.1em;
+  line-height: 0.4;
+}
+
+.logo-subtitle {
+  font-size: 9px;
+  color: #000;
+  font-weight: 500;
+}
+
+/* Nav Tabs */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-tab {
+  background: transparent;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #858585;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  color: #4a4a4a;
+}
+
+.nav-tab.active {
+  color: #4a4a4a;
+  text-decoration: underline #4e91f9;
+  text-decoration-line: 1px;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+/* Export Button */
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px solid #4e91f9;
+  color: #4e91f9;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-export:hover {
+  background: #4e91f9;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(13, 87, 148, 0.25);
+}
+
+.btn-export svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-tabs {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+}
