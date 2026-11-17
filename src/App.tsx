@@ -6,7 +6,7 @@ const layananCsvUrl = new URL("./assets/data_layanan.csv", import.meta.url).href
 const kunjunganCsvUrl = new URL("./assets/data_kunjungan_SIMULASI.csv", import.meta.url).href;
 const cssUrl = new URL("./app.css", import.meta.url).href;
 import Navbar from "./component/Navbar.tsx";
-import StatsCard from "./component/StatsCard.tsx";
+import StatsCard from "./component/StatsCard.tsx";5
 import Dashboard from "./pages/Dashboard.tsx";
 import AnalisisOptimalisasi from "./pages/AnalisisOptimalisasi.tsx";
 import LayananTable from "./pages/LayananTable.tsx";
@@ -52,21 +52,6 @@ interface KunjunganLayanan {
   url: string;
 }
 
-const recommendations = [
-  {
-    title: 'perluas sosialisasi layanan digital',
-    services: ['nomor induk berusaha(NIB) UMKM', 'KTP-el Baru'],
-  },
-  {
-    title: 'pemberdayaan LKS dan Disabilitas',
-    services: ['pendaftaran penyandang disabilitas', 'program keluarga Harapan'],
-  },
-  {
-    title: 'pembersihan data kependudukan Ganda',
-    services: ['konsolidasi data adminduk', 'BPJS kesehatan Mandiri'],
-  },
-]
-
 function formatNumber(num: number): string {
   return new Intl.NumberFormat("id-ID").format(num);
 }
@@ -78,7 +63,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("grafik");
-  const [selectedRecommendation, setSelectedRecommendation] = useState<string | null>(null)
 
   useEffect(() => {
     const stylesheet = document.createElement("link");
@@ -225,7 +209,7 @@ export default function App() {
 
       {activeTab === "grafik" && (<Dashboard kunjungan={kunjunganLayanan} formatNumber={formatNumber} />)}
 
-      {activeTab === "saran" && (<Saran_Antisipasi recommendations={recommendations} selectedRecommendation={selectedRecommendation} setSelectedRecommendation={setSelectedRecommendation} />)}
+      {activeTab === "saran" && <Saran_Antisipasi />}
 
       {activeTab === "analisis" && (<AnalisisOptimalisasi />)}
 
